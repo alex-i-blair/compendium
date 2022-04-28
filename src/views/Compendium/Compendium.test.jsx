@@ -19,6 +19,8 @@ describe('pokemon list behavioral test', () => {
     render(<Compendium />);
     const search = screen.getByPlaceholderText('Search Pokemon');
     screen.debug();
+
+    //This userEvent is not returning any results no matter the input
     userEvent.type(search, 'f');
     await screen.findByText('Clefable', { timeout: 3000 });
   });
