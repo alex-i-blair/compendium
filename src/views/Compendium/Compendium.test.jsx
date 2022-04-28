@@ -1,4 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Compendium from './Compendium';
 
@@ -17,13 +21,11 @@ describe('pokemon list component test', () => {
 describe('pokemon list behavioral test', () => {
   it('should render jigglypuff when search === jigglypuff', async () => {
     render(<Compendium />);
+    await waitForElementToBeRemoved(screen.getByText(/loading.../i));
     const search = screen.getByPlaceholderText('Search Pokemon');
-    screen.debug();
 
-    //This userEvent is not returning any results no matter the input
-    userEvent.type(search, 'f');
+    userEvent.type(search, 'jigglypuff');
 
-    //Failing findBy
-    // await screen.findByText('Clefable', { timeout: 3000 });
+    await screen.findByText(/jigglypuff/i);
   });
 });
